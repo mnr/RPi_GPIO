@@ -1,8 +1,8 @@
 import RPi.GPIO as GPIO
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 
-inputpin = 7
+inputpin = 4
 
 GPIO.setup(inputpin,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 
