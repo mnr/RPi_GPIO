@@ -1,13 +1,23 @@
+# works with MCP3008, ch0
+# returns x/10ths of a volt
 import spidev
 import time
 
-spi=spidev.SpiDev()
-spiDevice = spi.open(0,0)
+spi=spidev.SpiDev() # create a spi object
 
-while True:
-    time.sleep(1)
-    to_send = [0x01,0x02,0x03,0x04]
-    resp = spi.xfer(to_send)
-    print (resp)
+spiBus = 0          # spi port 0
+spiDevice = 0       # GPIO CE0
+spiDevice = spi.open(spiBus,spiDevice)
+
+spiControl = 0b00001000 # single end mcp3008 ch0
+
+try:
+    while True:
+        time.sleep(1)
+        to_send = [spiControl,0x02]
+        resp = spi.xfer(to_send)
+        print (resp)
+except KeyboardInterrupt: #control-c
+    spi.close()         # close the spi device
     
 
