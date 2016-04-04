@@ -3,9 +3,9 @@ import time
 
 GPIO.setmode(GPIO.BOARD)
 
-MotorForward = 16
-MotorBackward = 18
-MotorEnable = 22
+MotorForward = 16      # GPIO.BOARD pin 16
+MotorBackward = 18     # GPIO.BOARD pin 18
+MotorEnable = 22       # GPIO.BOARD pin 22
 
 GPIO.setup(MotorForward,GPIO.OUT)
 GPIO.setup(MotorBackward,GPIO.OUT)
