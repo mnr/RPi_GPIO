@@ -8,7 +8,7 @@ def exit_handler():
 atexit.register(exit_handler)
 
 def my_callback(channel):
-    print("Switch is closed")
+    print("The switch changed")
 
 GPIO.setmode(GPIO.BCM)
 
