@@ -9,12 +9,15 @@ spiBus = 0          # spi port 0
 spiDevice = 0       # GPIO CE0
 spiDevice = spi.open(spiBus,spiDevice)
 
+# instructions for this value are found in the MCP3008 datasheet
+# Table 5-2: Configure bits for the MCP3008
 spiControl = 0b00001000 # single end mcp3008 ch0
+
+to_send = [spiControl,0x02]
 
 try:
     while True:
         time.sleep(1)
-        to_send = [spiControl,0x02]
         resp = spi.xfer(to_send)
         print (resp)
 except KeyboardInterrupt: #control-c
