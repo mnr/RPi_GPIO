@@ -1,0 +1,227 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10369,        219]
+NotebookOptionsPosition[      9895,        204]
+NotebookOutlinePosition[     10227,        219]
+CellTagsIndexPosition[     10184,        216]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Demonstration", " ", "of", " ", "reading", " ", "and", " ", "writing", 
+    " ", "Raspberry", " ", "Pi", " ", "GPIO"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "Presented", " ", "as", " ", "part", " ", "of", " ", "LinkedIn", " ", 
+    "Learning", " ", "\"\<Raspberry Pi GPIO\>\""}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"Mark", " ", "Niemann"}], "-", "Ross"}], "..."}], " ", 
+    RowBox[{
+     RowBox[{"mark", "@", "niemannross"}], ".", "com"}]}], " ", 
+   "*)"}]}]], "Input",
+ CellChangeTimes->{{3.770220503521188*^9, 3.770220525147525*^9}, {
+   3.7702206383220787`*^9, 3.7702206607716637`*^9}, {3.770223296435824*^9, 
+   3.7702232979865522`*^9}, {3.770223779771709*^9, 3.770223785152761*^9}, {
+   3.770239264364642*^9, 3.770239344561069*^9}, {3.770239378502626*^9, 
+   3.7702394274393997`*^9}, 3.770341409569852*^9, {3.770341467964303*^9, 
+   3.770341535744801*^9}, {3.7703418082160063`*^9, 3.770341825919714*^9}, {
+   3.78295542738671*^9, 3.782955430493887*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"ed0b11e7-d19e-4f66-a8d1-e64df450b1e2"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Name", " ", "the", " ", "LED", " ", "and", " ", "button"}], " ", 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"led1", "=", "21"}], "\[IndentingNewLine]", 
+   RowBox[{"led2", "=", "20"}], "\[IndentingNewLine]", 
+   RowBox[{"led4", "=", "16"}], "\[IndentingNewLine]", 
+   RowBox[{"led8", "=", "26"}], "\[IndentingNewLine]", 
+   RowBox[{"resetbutton", "=", "3"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"configure", " ", "input", " ", "and", " ", "output"}], " ", 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"DeviceConfigure", "[", 
+    RowBox[{"\"\<GPIO\>\"", ",", " ", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"led1", "\[Rule]", "\"\<Output\>\""}], ",", " ", 
+       "\[IndentingNewLine]", 
+       RowBox[{"led2", "\[Rule]", "\"\<Output\>\""}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"led4", "\[Rule]", "\"\<Output\>\""}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"led8", "\[Rule]", "\"\<Output\>\""}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"resetbutton", " ", "\[Rule]", " ", "\"\<Input\>\""}]}], 
+      "\[IndentingNewLine]", "}"}]}], "]"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"turnlightson", "[", "lightmask_", "]"}], ":=", " ", 
+    RowBox[{"(", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Print", "[", 
+       RowBox[{"\"\<lightmask is \>\"", ",", "lightmask"}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"DeviceWrite", "[", 
+       RowBox[{"\"\<GPIO\>\"", ",", " ", 
+        RowBox[{"led1", " ", "\[Rule]", " ", 
+         RowBox[{"Boole", "[", 
+          RowBox[{
+           RowBox[{"BitAnd", "[", 
+            RowBox[{"lightmask", ",", "1"}], "]"}], ">", "0"}], "]"}]}]}], 
+       "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"DeviceWrite", "[", 
+       RowBox[{"\"\<GPIO\>\"", ",", " ", 
+        RowBox[{"led2", " ", "\[Rule]", " ", 
+         RowBox[{"Boole", "[", 
+          RowBox[{
+           RowBox[{"BitAnd", "[", 
+            RowBox[{"lightmask", ",", "2"}], "]"}], ">", "0"}], "]"}]}]}], 
+       "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"DeviceWrite", "[", 
+       RowBox[{"\"\<GPIO\>\"", ",", " ", 
+        RowBox[{"led4", " ", "\[Rule]", " ", 
+         RowBox[{"Boole", "[", 
+          RowBox[{
+           RowBox[{"BitAnd", "[", 
+            RowBox[{"lightmask", ",", "4"}], "]"}], ">", "0"}], "]"}]}]}], 
+       "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"DeviceWrite", "[", 
+       RowBox[{"\"\<GPIO\>\"", ",", " ", 
+        RowBox[{"led8", " ", "\[Rule]", " ", 
+         RowBox[{"Boole", "[", 
+          RowBox[{
+           RowBox[{"BitAnd", "[", 
+            RowBox[{"lightmask", ",", "8"}], "]"}], ">", "0"}], "]"}]}]}], 
+       "]"}]}], "\[IndentingNewLine]", ")"}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"counter", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"Do", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"(", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"counter", "=", "0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"While", "[", 
+        RowBox[{
+         RowBox[{"counter", "<", "16"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"(", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"While", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"DeviceRead", "[", 
+                RowBox[{"\"\<GPIO\>\"", ",", " ", "resetbutton"}], "]"}], "[",
+                "resetbutton", "]"}], "==", "0"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"(", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"turnlightson", "[", "15", "]"}], ";", 
+               "\[IndentingNewLine]", 
+               RowBox[{"counter", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+              ")"}]}], "\[IndentingNewLine]", "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"turnlightson", "[", "counter", "]"}], ";", 
+           "\[IndentingNewLine]", 
+           RowBox[{"counter", "++"}], ";", "\[IndentingNewLine]", 
+           RowBox[{"Pause", "[", "1", "]"}], ";"}], "\[IndentingNewLine]", 
+          ")"}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+      ")"}], "\[IndentingNewLine]", ",", " ", "5"}], "\[IndentingNewLine]", 
+    "]"}], "\[IndentingNewLine]", "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.770220503521188*^9, 3.770220525147525*^9}, {
+   3.7702206383220787`*^9, 3.7702206607716637`*^9}, {3.770223296435824*^9, 
+   3.7702232979865522`*^9}, {3.770223779771709*^9, 3.770223785152761*^9}, {
+   3.770239264364642*^9, 3.770239344561069*^9}, {3.770239378502626*^9, 
+   3.7702394274393997`*^9}, 3.770341409569852*^9, 3.770341467964303*^9, {
+   3.770341591931711*^9, 3.770341620426947*^9}, 3.782955452388349*^9, {
+   3.7829556544394484`*^9, 3.7829557760960627`*^9}, {3.782955830043016*^9, 
+   3.7829558572671347`*^9}, {3.782955915527264*^9, 3.782955998266568*^9}, {
+   3.782956144591748*^9, 3.782956153053*^9}, {3.782956188461308*^9, 
+   3.782956220445014*^9}, {3.78295641512189*^9, 3.782956463050935*^9}, {
+   3.7829565624975777`*^9, 3.7829566828806133`*^9}, {3.782956732741835*^9, 
+   3.782956796575221*^9}, {3.7829569403308287`*^9, 3.782956943036952*^9}, {
+   3.782957421891868*^9, 3.782957544896432*^9}, {3.782957611767322*^9, 
+   3.782957815550129*^9}, {3.7829578551467457`*^9, 3.7829578828858747`*^9}, {
+   3.7829579732331657`*^9, 3.78295804890862*^9}, {3.782958086879139*^9, 
+   3.7829580953450317`*^9}, {3.7829581288905373`*^9, 3.782958144269002*^9}, {
+   3.782958503126231*^9, 3.782958550791888*^9}, {3.782958598159131*^9, 
+   3.782958621540303*^9}, {3.7829588340635777`*^9, 3.782958853741542*^9}, {
+   3.782958974255762*^9, 3.782959024408207*^9}, {3.782959056446415*^9, 
+   3.7829591016478252`*^9}, 3.782959238454718*^9, {3.7829593006258183`*^9, 
+   3.7829593204338627`*^9}, 3.78295935089046*^9, {3.782959474723176*^9, 
+   3.782959510799432*^9}, {3.78295954265205*^9, 3.782959576110133*^9}, {
+   3.782959609342598*^9, 3.7829596419513073`*^9}, 3.782959683178142*^9, {
+   3.782959737885611*^9, 3.7829597804126177`*^9}, {3.782959842528431*^9, 
+   3.782959846436706*^9}, {3.782959876890614*^9, 3.7829598988131638`*^9}, {
+   3.782959976000849*^9, 3.7829600606251593`*^9}, {3.782960174834813*^9, 
+   3.7829602088835783`*^9}, 3.78296039003484*^9, {3.782960738082456*^9, 
+   3.7829608138364763`*^9}, {3.782960845447761*^9, 3.7829609078764668`*^9}, {
+   3.782960949936406*^9, 3.782960957039135*^9}, {3.7829610060830793`*^9, 
+   3.782961035420953*^9}, {3.782961085909081*^9, 3.782961125813291*^9}, 
+   3.78296126658459*^9, {3.7829613017152042`*^9, 3.782961410305719*^9}, {
+   3.782961512913678*^9, 3.782961514375412*^9}, {3.782961611930787*^9, 
+   3.782961630212103*^9}, {3.78296179055054*^9, 3.782961790943606*^9}, {
+   3.7829618391865473`*^9, 3.782961864594907*^9}, {3.782961966417102*^9, 
+   3.782961983703376*^9}, {3.782962226855835*^9, 3.782962245367538*^9}, {
+   3.782962281643949*^9, 3.782962284812911*^9}, {3.782962373437213*^9, 
+   3.782962386926235*^9}, {3.782962432480603*^9, 3.782962452682641*^9}, 
+   3.782962485164603*^9, {3.782962579221479*^9, 3.7829625863826*^9}, {
+   3.782962621579173*^9, 3.782962657281371*^9}, {3.782962688506222*^9, 
+   3.782962932104828*^9}, {3.782962989180127*^9, 3.782963007871975*^9}, {
+   3.7829630888151903`*^9, 3.782963091334242*^9}, 3.782963169946302*^9, {
+   3.782963204803545*^9, 3.7829632562195063`*^9}, {3.782963338030815*^9, 
+   3.7829633446028757`*^9}, {3.7829634885791597`*^9, 3.782963493599938*^9}, {
+   3.782963569968441*^9, 3.782963571451787*^9}, {3.782963644797166*^9, 
+   3.782963656877822*^9}, {3.782963724008052*^9, 3.782963773213151*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"c7f9a108-f43a-404d-b1e4-69249610fc9d"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.7829591292536097`*^9, 3.78295913360837*^9}, 
+   3.782959316335293*^9, 3.782962492581966*^9, {3.782963068081588*^9, 
+   3.7829630762843533`*^9}},ExpressionUUID->"1bd1d937-175e-412a-a89e-\
+d7bf20a97e00"]
+},
+WindowSize->{1280, 656},
+WindowMargins->{{0, Automatic}, {0, Automatic}},
+FrontEndVersion->"11.3 for Linux ARM (32-bit) (May 23, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1203, 26, 78, "Input",ExpressionUUID->"ed0b11e7-d19e-4f66-a8d1-e64df450b1e2"],
+Cell[1764, 48, 7874, 148, 1067, "Input",ExpressionUUID->"c7f9a108-f43a-404d-b1e4-69249610fc9d"],
+Cell[9641, 198, 250, 4, 31, "Input",ExpressionUUID->"1bd1d937-175e-412a-a89e-d7bf20a97e00"]
+}
+]
+*)
+
